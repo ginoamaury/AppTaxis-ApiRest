@@ -19,7 +19,6 @@ const UserSchema = Schema ({
     address : String,
     picture : String,
     type: { type:String ,enum: ['client','driver']},
-    state: String,
     favProducts:[]
 })
 
