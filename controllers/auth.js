@@ -4,6 +4,7 @@ const User = require('../models/user')
 const service = require('../services')
 
 function signUp (req,res){
+  console.log(req.body)
   const user = new User({
     idCard : req.body.idCard,
     firstName : req.body.firstName,
