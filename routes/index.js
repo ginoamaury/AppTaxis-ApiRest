@@ -33,9 +33,9 @@ api.put('/client/favorites/:documentId',userController.addFavoriteProduct)
 /// PETICIONES INICIO DE SESION
 
 //Petición para registrar usuario
-api.post('/signUp',userControl.signUp)
+api.post('/signup',userControl.signUp)
 //Petición para iniciar sesion
-api.post('/signIn',userControl.signIn)
+api.post('/signin',userControl.signIn)
 
 
 /// PETICIONES CATEGORIAS
