@@ -5,18 +5,18 @@ const service = require('../services')
 
 function signUp (req,res){
   console.log(req.body)
-  let user = new User({
-    idCard : req.body.idCard,
-    firstName : req.body.firstName,
-    lastName : req.body.lastName,
-    email : req.body.email,
-    password: req.body.password,
-    birthDay : req.body.birthDay,
-    gender : req.body.gender,
-    number : req.body.number,
-    address : req.body.address,
-    type: req.body.type
-  })
+  let user = new User()
+    user.idCard = req.body.idCard,
+    user.firstName = req.body.firstName,
+    user.lastName = req.body.lastName,
+    user.email = req.body.email,
+    user.password= req.body.password,
+    user.birthDay = req.body.birthDay,
+    user.gender = req.body.gender,
+    user.number = req.body.number,
+    user.address = req.body.address,
+    user.type= req.body.type
+  
 
   user.picture = user.gravatar()
 
