@@ -6,19 +6,19 @@ const service = require('../services')
 function signUp (req,res){
   console.log(req.body)
   let user = new User()
-    user.idCard = req.body.idCard,
-    user.firstName = req.body.firstName,
-    user.lastName = req.body.lastName,
-    user.email = req.body.email,
-    user.password= req.body.password,
-    user.birthDay = req.body.birthDay,
-    user.gender = req.body.gender,
-    user.number = req.body.number,
-    user.address = req.body.address,
-    user.type= req.body.type
-  
-
+  user.idCard = req.body.idCard
+  user.firstName = req.body.firstName
+  user.lastName = req.body.lastName
+  user.email = req.body.email
+  user.password= req.body.password
+  user.birthDay = req.body.birthDay
+  user.gender = req.body.gender
+  user.number = req.body.number
+  user.address = req.body.address
+  user.type= req.body.type
   user.picture = user.gravatar()
+
+  console.log(user)
 
   User.findOne({email: req.body.email},(err,user)=>{
     if(err) return res.status(500).send({message:err})
