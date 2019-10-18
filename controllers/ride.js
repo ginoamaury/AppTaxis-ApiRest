@@ -16,10 +16,20 @@ function getRide(req,res){
 function getRides(req,res){
     Ride.find({},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '00'})
+        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         res.status(200).send({rides,state : '00'})
     })
 }
+
+// Función que obtiene todos los viajes disponibles existentes
+function getRidesAvailable(req,res){
+    Ride.find({},(err,rides)=>{
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
+        res.status(200).send({rides,state : '00'})
+    }).where('status').equals('open')
+}
+
 // Función que obtiene todos los producto de una categoria disponibles
 function getRidesbyCategory(req,res){
     let categoryId = req.params.categoryId
@@ -39,11 +49,19 @@ function getRidesByOffsale(req,res){
     }).where('offSale').gt(percent)
 }
 
-// Función que crea un nuevo producto
+// Función que crea un nuevo viaje
 function newRide(req,res){
     let ride = new Ride()
     ride.idClient = req.body.idClient
     ride.payment = req.body.payment
+    ride.pick = req.body.pick
+    ride.drop = req.body.drop
+    ride.kilometers = ""
+    ride.status = "open"
+    ride.note = ""
+    ride.score = ""
+    ride.idDriver = ""
+    ride.price = ""
 
     ride.save((err,rideStored)=>{
         if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
@@ -51,7 +69,7 @@ function newRide(req,res){
     })
 }
 
-// Función que actualiza un producto
+// Función que actualiza un viaje
 function updateRide (req,res){
     let rideId = req.params.rideId
     let update = req.body

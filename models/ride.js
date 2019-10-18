@@ -11,6 +11,7 @@ const RideSchema = Schema({
     pick: String,
     drop: String,
     kilometers: Number,
+    status : { type: String , enum: ['open','closed','travel']},
     note : String,
     score: Number,
     date: {type:Date ,default: Date.now}

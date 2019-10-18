@@ -17,6 +17,7 @@ function signUp (req,res){
   user.address = req.body.address
   user.type= req.body.type
   user.picture = user.gravatar()
+  user.state = "offline"
 
   console.log(user)
 
@@ -52,7 +53,7 @@ function signIn (req,res){
 
     })
    
- }).select('_id + email + password + idCard + firstName + lastName + birthDay + gender + number + address + type + picture')
+ }).select('_id + email + password + idCard + firstName + lastName + birthDay + gender + number + address + type + picture + state')
 }
 
 module.exports = {
