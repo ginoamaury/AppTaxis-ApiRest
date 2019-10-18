@@ -96,5 +96,6 @@ module.exports = {
     getRidesByOffsale,
     newRide,
     updateRide,
-    deleteRide
+    deleteRide,
+    getRidesAvailable
 }
