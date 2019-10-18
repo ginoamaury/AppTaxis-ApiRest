@@ -27,7 +27,7 @@ function signUp (req,res){
       if(err) return res.status(500).send({message:err})
       if(user) return res.status(404).send({message: 'El usuario ya se registro con esa cedula'})
         user.save((err, userStored)=>{
-          if(err) res.status(500).send({message: `Error al crear el usuario: ${err}`})
+          if(err) return res.status(500).send({message: `Error al crear el usuario: ${err}`})
           return res.status(200).send({ token: service.createToken(user), user: userStored})
         })
     })
