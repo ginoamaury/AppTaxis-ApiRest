@@ -6,9 +6,9 @@ const service = require('../services')
 // Funcion que obtiene todas las categorias
 function getCategories (req, res){
     Category.find({},(err,categories)=>{
-        if(err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-        if(!categories) return res.status(404).send({mesage: `No existen categorias`})
-        res.status(200).send({categories})
+        if(err) return res.status(500).send({message: `Error al realizar la petición: ${err}`,state : '01'})
+        if(!categories) return res.status(404).send({mesage: `No existen categorias`,state : '01'})
+        res.status(200).send({categories,state : '00'})
     })
 }
 
@@ -16,9 +16,9 @@ function getCategories (req, res){
 function getCategory (req, res){
     let name = req.params.name
     Category.findOne({name},(err,category)=>{
-        if(err) return res.status(500).send({mesage: `Error al realizar la petición: ${err}`})
-        if(!category) return res.status(404).send({mesage: `No existe esta categoria`})
-        res.status(200).send({category})
+        if(err) return res.status(500).send({mesage: `Error al realizar la petición: ${err}`,state : '01'})
+        if(!category) return res.status(404).send({mesage: `No existe esta categoria`,state : '01'})
+        res.status(200).send({category,state : '00'})
     })
 }
 
@@ -28,8 +28,8 @@ function newCategory (req,res){
     category.name = req.body.name
 
     category.save((err,categoryStored)=>{
-        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`})
-        res.status(200).send({category: categoryStored})
+        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
+        res.status(200).send({category: categoryStored,state : '00'})
     })
 
 }
@@ -40,8 +40,8 @@ function updateCategory (req,res){
     let update = req.body
 
     Category.findByIdAndUpdate(categoryId,update,(err,categoryUpdate)=>{
-        if(err) res.status(500).send({message: `Error al intentar actualizar la categoria: ${err}`})
-        res.status(200).send({category:categoryUpdate})
+        if(err) res.status(500).send({message: `Error al intentar actualizar la categoria: ${err}`,state : '01'})
+        res.status(200).send({category:categoryUpdate,state : '00'})
     })
 }
 
@@ -49,8 +49,8 @@ function updateCategory (req,res){
 function deleteCategory (req,res){
     let categoryId = req.params.categoryId
     Category.findByIdAndRemove(categoryId,(err,categoryDelete)=>{
-        if(err) res.status(500).send({message: `Error al intentar borrar la categoria: ${err}`})
-        res.status(200).send({message: `Categoria eliminada correctamente`})
+        if(err) res.status(500).send({message: `Error al intentar borrar la categoria: ${err}`,state : '01'})
+        res.status(200).send({message: `Categoria eliminada correctamente`,state : '00'})
     })
 }
 

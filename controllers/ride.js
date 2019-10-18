@@ -7,35 +7,35 @@ const Ride = require('../models/ride')
 function getRide(req,res){
     let rideId = req.params.rideId
     Ride.findById(rideId, (err,ride)=>{
-        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
-        if(!ride) return res.status(404).send({message:`El viaje no existe`})
-        res.status(200).send({ride})
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!ride) return res.status(404).send({message:`El viaje no existe`,state : '01'})
+        res.status(200).send({ride,state : '00'})
     })
 }
 // Función que obtiene todos los viajes existentes
 function getRides(req,res){
     Ride.find({},(err,rides)=>{
-        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
-        if(!rides) return res.status(404).send({message: `No existen viajes`})
-        res.status(200).send({rides})
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '00'})
+        res.status(200).send({rides,state : '00'})
     })
 }
 // Función que obtiene todos los producto de una categoria disponibles
 function getRidesbyCategory(req,res){
     let categoryId = req.params.categoryId
     Ride.find({},(err,rides)=>{
-        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
-        if(!rides) return res.status(404).send({message:`No existen productos para esta categoria`})
-        res.status(200).send({rides})
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message:`No existen productos para esta categoria`,state : '01'})
+        res.status(200).send({rides,state : '00'})
     }).where('category').equals(categoryId)
 }
 // Función que obtiene todos los productos con descuentos disponibles mayores a un porcentaje
 function getRidesByOffsale(req,res){
     let percent = req.params.percent
     Ride.find({},(err,rides)=>{
-        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
-        if(!rides) return res.status(404).send({message:`No existen productos con descuento`})
-        res.status(200).send({rides})
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message:`No existen productos con descuento`,state : '01'})
+        res.status(200).send({rides,state : '00'})
     }).where('offSale').gt(percent)
 }
 
@@ -46,8 +46,8 @@ function newRide(req,res){
     ride.payment = req.body.payment
 
     ride.save((err,rideStored)=>{
-        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`})
-        res.status(200).send({ride: rideStored})
+        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
+        res.status(200).send({ride: rideStored,state : '00'})
     })
 }
 
@@ -57,8 +57,8 @@ function updateRide (req,res){
     let update = req.body
 
     Product.findByIdAndUpdate(rideId,body,(err,rideUpdate)=>{
-        if(err) return res.status(500).send({message:`Error al intentar actualizar el viaje: ${err}`})
-        return res.status(200).send({ride : rideUpdate})
+        if(err) return res.status(500).send({message:`Error al intentar actualizar el viaje: ${err}`,state : '01'})
+        return res.status(200).send({ride : rideUpdate,state : '00'})
     })
 }
 
@@ -66,8 +66,8 @@ function updateRide (req,res){
 function deleteRide (req,res){
     let rideId = req.params.rideId
     Product.findByIdAndDelete(rideId,(err,rideDeleted)=>{
-        if(err) return res.status(500).send({message:`Error al intentar eliminar el viaje: ${err}`})
-        return res.status(200).send({message: `Viaje eliminado correctamente`})
+        if(err) return res.status(500).send({message:`Error al intentar eliminar el viaje: ${err}`,state : '01'})
+        return res.status(200).send({message: `Viaje eliminado correctamente`,state : '00'})
     })
 }
 

@@ -46,8 +46,8 @@ function newUser(req,res){
     user.picture = req.body.picture
 
     user.save((err,userStored)=>{
-        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`})
-        res.status(200).send({user: userStored})
+        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
+        res.status(200).send({state:'00',user: userStored})
     })
 
 }
@@ -58,8 +58,8 @@ function updateUser(req,res){
     let update = req.body
 
     User.findByIdAndUpdate(clientId, update, (err,clientUpdate)=>{
-        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`})
-        res.status(200).send({client: clientUpdate})         
+        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+        res.status(200).send({client: clientUpdate,state : '00'})         
     })
 
 }
@@ -69,11 +69,11 @@ function updateUser(req,res){
 function deleteUser(req,res){
     let clientId = req.params.documentId
     User.findById(clientId , (err,client) =>{
-        if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`})
+        if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`,state : '01'})
 
         client.remove(err=>{
-            if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`})
-            res.status(200).send({message: 'El usuario ha sido eliminado correctamente'})
+            if(err) res.status(500).send({message: `Error al borrar el usuario: ${err}`,state : '01'})
+            res.status(200).send({message: 'El usuario ha sido eliminado correctamente',state : '00'})
         })
     })
 }
@@ -82,9 +82,9 @@ function deleteUser(req,res){
 function getFavoriteProducts(req,res){
     let clientId = req.params.documentId
     User.findById(clientId,(err,client)=>{
-          if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
-          if(!client) return res.status(404).send({message: `El usuario no existe`})
-          res.status(200).send({products : client.favProducts})
+          if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+          if(!client) return res.status(404).send({message: `El usuario no existe`,state : '01'})
+          res.status(200).send({products : client.favProducts,state : '00'})
     })
 }
 
@@ -93,8 +93,8 @@ function addFavoriteProduct(req,res){
     let clientId = req.params.documentId
     let productId = req.body.productId
     User.findByIdAndUpdate(clientId,{$push: {favProducts: productId}},(err,clientUpdate)=>{
-        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`})
-        res.status(200).send({client: clientUpdate}) 
+        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+        res.status(200).send({client: clientUpdate,state : '00'}) 
     })
 }
 
