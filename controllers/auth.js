@@ -26,9 +26,9 @@ function signUp (req,res){
     User.findOne({idCard: req.body.idCard},(err,user)=>{
       if(err) return res.status(500).send({message:err})
       if(user) return res.status(404).send({message: 'El usuario ya se registro con esa cedula'})
-        user.save((err)=>{
+        user.save((err, userStored)=>{
           if(err) res.status(500).send({message: `Error al crear el usuario: ${err}`})
-          return res.status(200).send({ token: service.createToken(user)})
+          return res.status(200).send({ token: service.createToken(user), user: userStored})
         })
     })
   })
