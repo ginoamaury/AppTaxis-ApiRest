@@ -23,11 +23,12 @@ function getRides(req,res){
 
 // Función que obtiene todos los viajes disponibles existentes
 function getRidesAvailable(req,res){
+    let status = req.params.status
     Ride.find({},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
         res.status(200).send({rides,state : '00'})
-    }).where('status').equals('open')
+    }).where(status).equals('open')
 }
 
 // Función que obtiene todos los producto de una categoria disponibles
