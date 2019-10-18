@@ -5,7 +5,7 @@ const service = require('../services')
 
 function signUp (req,res){
   console.log(req.body)
-  const user = new User({
+  let user = new User({
     idCard : req.body.idCard,
     firstName : req.body.firstName,
     lastName : req.body.lastName,
