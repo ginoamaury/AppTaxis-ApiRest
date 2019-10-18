@@ -21,7 +21,7 @@ function getRides(req,res){
     })
 }
 
-// Función que obtiene todos los viajes disponibles existentes
+// Función que obtiene todos los viajes disponibles existentes con determinado estado
 function getRidesAvailable(req,res){
     let statusSearch = req.params.status
     console.log(statusSearch)
@@ -30,6 +30,32 @@ function getRidesAvailable(req,res){
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
+        res.status(200).send({rides,state : '00'})
+    })
+}
+
+// Función que obtiene todos los viajes realizados por un conductor
+function getRidesDriver(req,res){
+    let id = req.params.idDriver
+    console.log(id)
+    Ride.find({idDriver:id},(err,rides)=>{
+        console.log(rides.length)
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
+        if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
+        res.status(200).send({rides,state : '00'})
+    })
+}
+
+// Función que obtiene todos los viajes realizados por un cliente
+function getRidesClient(req,res){
+    let id = req.params.idClient
+    console.log(id)
+    Ride.find({idClient:id},(err,rides)=>{
+        console.log(rides.length)
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
+        if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
         res.status(200).send({rides,state : '00'})
     })
 }
@@ -101,5 +127,7 @@ module.exports = {
     newRide,
     updateRide,
     deleteRide,
-    getRidesAvailable
+    getRidesAvailable,
+    getRidesDriver,
+    getRidesClient
 }

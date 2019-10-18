@@ -62,8 +62,12 @@ api.get('/ride/:rideId',rideController.getRide)
 api.get('/ride/category/:categoryId',rideController.getRidesbyCategory)
 // Petición GET para obtener productos con descuento disponibles
 api.get('/ride/offSale/:percent',rideController.getRidesByOffsale)
-//Petición GET para obtener un viaje con estado open
+//Petición GET para obtener los viajes con determinado estado
 api.get('/ride/status/:status',rideController.getRidesAvailable)
+//Petición GET para obtener los viajes de un conductor
+api.get('/ride/driver/:idDriver',rideController.getRidesDriver)
+//Petición GET para obtener los viajes de un Cliente
+api.get('/ride/client/:idClient',rideController.getRidesClient)
 // Petición POST para registrar un nuevo viaje
 api.post('/ride',rideController.newRide)
 // Petición PUT para actualizar un viaje
