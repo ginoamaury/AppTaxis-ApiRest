@@ -24,7 +24,7 @@ function getRides(req,res){
 // Función que obtiene todos los viajes disponibles existentes
 function getRidesAvailable(req,res){
     let statusSearch = req.params.status
-    console.log(status)
+    console.log(statusSearch)
     Ride.find({status:statusSearch},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
