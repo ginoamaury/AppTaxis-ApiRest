@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express')
+const cors = require('cors')
 
 const userController = require('../controllers/user')
 const userControl = require('../controllers/auth')
@@ -10,6 +11,7 @@ const orderControl = require('../controllers/order')
 
 const auth = require('../middlewares/auth')
 const api = express.Router()
+api.use(cors())
 
 // PETICIONES USUARIO
 
