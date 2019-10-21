@@ -67,13 +67,12 @@ function updateUser(req,res){
 // Función que actualiza un usuario
 function updatePictureUser(req,res){
     let clientId = req.params.documentId
-    console.log(`Storage location is ${req.hostname}/${req.file.path}`)
     let picture = req.file.path
-   
+    console.log(`Storage location is ${req.hostname}/${req.file.path}`)
 
     User.findByIdAndUpdate(clientId, {'picture':picture}, (err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
-        res.status(200).send({client: clientUpdate,state : '00'})         
+        res.status(200).send({client: clientUpdate,file: req.file,state : '00'})         
     })
 
 }
