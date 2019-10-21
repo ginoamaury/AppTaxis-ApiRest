@@ -64,6 +64,18 @@ function updateUser(req,res){
 
 }
 
+// Función que actualiza un usuario
+function updatePictureUser(req,res){
+    let clientId = req.params.documentId
+    let picture = req.file.path
+
+    User.findByIdAndUpdate(clientId, {'picture':picture}, (err,clientUpdate)=>{
+        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+        res.status(200).send({client: clientUpdate,state : '00'})         
+    })
+
+}
+
 
 // Función que borra un usuario
 function deleteUser(req,res){
@@ -102,6 +114,7 @@ module.exports ={
     getUser,
     getUsers,
     updateUser,
+    updatePictureUser,
     newUser,
     deleteUser,
     getFavoriteProducts,

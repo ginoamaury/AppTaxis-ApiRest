@@ -10,6 +10,7 @@ const categoryControl = require('../controllers/category')
 const orderControl = require('../controllers/order')
 
 const auth = require('../middlewares/auth')
+const upload = require('../middlewares/upload')
 const api = express.Router()
 api.use(cors())
 
@@ -23,6 +24,8 @@ api.get('/client/:documentId',userController.getUser)
 api.post('/client',userController.newUser)
 // Petición PUT para actualizar un usuario especifico
 api.put('/client/:documentId',userController.updateUser)
+// Petición PUT para actualizar la foto de un usuario especifico
+api.put('/client/picture/:documentId',upload.single('file'),userController.updatePictureUser)
 // Petición DELETE para eliminar un usuario especifico
 api.delete('/client/:documentId',userController.deleteUser)
 // Petición GET para obtener todos los productos favoritos
