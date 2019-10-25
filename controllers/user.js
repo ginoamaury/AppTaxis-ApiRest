@@ -2,6 +2,7 @@
 
 //Importamos el modelo
 const User = require('../models/user')
+const Car = require('../models/car')
 
 // Función que obtiene un usuario por su id
 function getUser(req,res){
@@ -92,20 +93,28 @@ function deleteUser(req,res){
 }
 
 // Función que obtiene todos los productos favoritos de un usuario
-function getFavoriteProducts(req,res){
+function getCars(req,res){
     let clientId = req.params.documentId
     User.findById(clientId,(err,client)=>{
           if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
           if(!client) return res.status(404).send({message: `El usuario no existe`,state : '01'})
-          res.status(200).send({products : client.favProducts,state : '00'})
+          res.status(200).send({products : client.cars,state : '00'})
     })
 }
 
-// Función que agrega un producto favorito al usuario
-function addFavoriteProduct(req,res){
+// Función que agrega un carro al usuario
+function addCar(req,res){
     let clientId = req.params.documentId
     let productId = req.body.productId
-    User.findByIdAndUpdate(clientId,{$push: {favProducts: productId}},(err,clientUpdate)=>{
+
+    let car = new Car()
+    car.licensePlate =  req.body.licensePlate
+    car.brand =  req.body.brand
+    car.model =  req.body.model
+    car.year =  req.body.year
+    car.color =  req.body.color
+
+    User.findByIdAndUpdate(clientId,{$push: {cars: car}},(err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
         res.status(200).send({client: clientUpdate,state : '00'}) 
     })
@@ -118,6 +127,6 @@ module.exports ={
     updatePictureUser,
     newUser,
     deleteUser,
-    getFavoriteProducts,
-    addFavoriteProduct
+    getCars,
+    addCar
 }

@@ -45,9 +45,9 @@ api.put('/client/picture/:documentId',upload.single('file'),userController.updat
 // Petición DELETE para eliminar un usuario especifico
 api.delete('/client/:documentId',userController.deleteUser)
 // Petición GET para obtener todos los productos favoritos
-api.get('/client/favorites/:documentId',userController.getFavoriteProducts)
+api.get('/client/car/:documentId',userController.getCars)
 // Petición PUT  para agregar un producto favorito
-api.put('/client/favorites/:documentId',userController.addFavoriteProduct)
+api.put('/client/car/:documentId',userController.addCar)
 // Petición DELETE para eliminar un producto favorito
 
 
