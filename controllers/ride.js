@@ -72,7 +72,7 @@ function getRidesClientToday(req,res){
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
         res.status(200).send({rides,count: rides.length,state : '00'})
-    })
+    }).where('date').lt(today)
 }
 
 
