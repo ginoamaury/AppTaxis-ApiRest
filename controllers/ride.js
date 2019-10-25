@@ -2,6 +2,7 @@
 
 //importación del modelo
 const Ride = require('../models/ride')
+const moment = require('moment')
 
 // Función que obtiene un viaje por su ID
 function getRide(req,res){
@@ -56,9 +57,25 @@ function getRidesClient(req,res){
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
-        res.status(200).send({rides,state : '00'})
+        res.status(200).send({rides,count: rides.length,state : '00'})
     })
 }
+
+// Funcion que obtiene todos los viajes en una fecha especifica
+// Función que obtiene todos los viajes realizados por un cliente
+function getRidesClientToday(req,res){
+    let id = req.params.idClient
+    let today = moment()
+    console.log(id)
+    Ride.find({idClient:id,date:{'$lt':today}},(err,rides)=>{
+        console.log(rides.length)
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
+        if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
+        res.status(200).send({rides,count: rides.length,state : '00'})
+    })
+}
+
 
 // Función que obtiene todos los producto de una categoria disponibles
 function getRidesbyCategory(req,res){
@@ -129,5 +146,6 @@ module.exports = {
     deleteRide,
     getRidesAvailable,
     getRidesDriver,
+    getRidesClientToday,
     getRidesClient
 }

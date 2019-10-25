@@ -89,6 +89,8 @@ api.get('/ride/status/:status',rideController.getRidesAvailable)
 api.get('/ride/driver/:idDriver',rideController.getRidesDriver)
 //Petición GET para obtener los viajes de un Cliente
 api.get('/ride/client/:idClient',rideController.getRidesClient)
+//Petición GET para obtener los viajes de un Cliente
+api.get('/ride/client/today/:idClient',rideController.getRidesClientToday)
 // Petición POST para registrar un nuevo viaje
 api.post('/ride',rideController.newRide)
 // Petición PUT para actualizar un viaje
