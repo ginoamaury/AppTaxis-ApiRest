@@ -61,10 +61,11 @@ function getRidesClient(req,res){
 // Funcion que obtiene todos los viajes en una fecha especifica
 function getRidesClientToday(req,res){
     let id = req.params.idClient
-    let today = moment().startOf('day')
-    console.log('fecha de hoy Iniciando el dia'+today)
-    let todayE = moment().endOf('day')
-    console.log('fecha de hoy finalizando el dia'+todayE)
+    let day = moment()
+    console.log('fecha de hoy Iniciando el dia '+ day.startOf('day').toString())
+    let today = day.startOf('day')
+    let todayE = day.endOf('day')
+    console.log('fecha de hoy finalizando el dia '+day.endOf('day').toString())
     console.log(id)
     Ride.find({idClient:id,date:{$gte : today,$lte : todayE}},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
