@@ -64,7 +64,7 @@ function getRidesClientToday(req,res){
     let today = moment.utc().startOf('day')
     console.log('fecha de hoy Iniciando el dia'+today)
     let todayE = moment.utc().endOf('day')
-    console.log('fecha de hoy finalizando el dia'+today)
+    console.log('fecha de hoy finalizando el dia'+todayE)
     console.log(id)
     Ride.find({idClient:id,date:{$gte : today,$lte : todayE}},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
