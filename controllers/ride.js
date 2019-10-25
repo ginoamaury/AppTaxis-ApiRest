@@ -27,7 +27,6 @@ function getRidesAvailable(req,res){
     let statusSearch = req.params.status
     console.log(statusSearch)
     Ride.find({status:statusSearch},(err,rides)=>{
-        console.log(rides.length)
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
@@ -40,7 +39,6 @@ function getRidesDriver(req,res){
     let id = req.params.idDriver
     console.log(id)
     Ride.find({idDriver:id},(err,rides)=>{
-        console.log(rides.length)
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
@@ -53,7 +51,6 @@ function getRidesClient(req,res){
     let id = req.params.idClient
     console.log(id)
     Ride.find({idClient:id},(err,rides)=>{
-        console.log(rides.length)
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
@@ -67,7 +64,6 @@ function getRidesClientToday(req,res){
     let today = moment.utc().startOf('day')
     console.log(id)
     Ride.find({idClient:id,date:{$let : today}},(err,rides)=>{
-        console.log(rides.length)
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
