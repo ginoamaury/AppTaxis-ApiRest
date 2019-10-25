@@ -98,14 +98,13 @@ function getCars(req,res){
     User.findById(clientId,(err,client)=>{
           if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
           if(!client) return res.status(404).send({message: `El usuario no existe`,state : '01'})
-          res.status(200).send({products : client.cars,state : '00'})
+          res.status(200).send({cars : client.cars,state : '00'})
     })
 }
 
 // Función que agrega un carro al usuario
 function addCar(req,res){
     let clientId = req.params.documentId
-    let productId = req.body.productId
 
     let car = new Car()
     car.licensePlate =  req.body.licensePlate
