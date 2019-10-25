@@ -63,7 +63,7 @@ function getRidesClientToday(req,res){
     let id = req.params.idClient
     let today = moment.utc().startOf('day')
     console.log(id)
-    Ride.find({idClient:id,date:{$let : today}},(err,rides)=>{
+    Ride.find({idClient:id,date:{$lte : today}},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
