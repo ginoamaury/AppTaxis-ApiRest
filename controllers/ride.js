@@ -63,11 +63,11 @@ function getRidesClientToday(req,res){
     let id = req.params.idClient
     let day = moment()
     console.log('fecha de hoy Iniciando el dia '+ day.startOf('day').utc().format())
-    let today = day.startOf('day').utc().format()
-    let todayE = day.endOf('day').utc().format()
+    let today = day.startOf('day').utc().toDate()
+    let todayE = day.endOf('day').utc().toDate()
     console.log('fecha de hoy finalizando el dia '+day.endOf('day').utc().format())
     console.log(id)
-    Ride.find({idClient:id,'date':{'$gte' : today,'$lte':todayE}},(err,rides)=>{
+    Ride.find({idClient:id,'date':{$gte : today,$lte:todayE}},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
