@@ -21,7 +21,8 @@ const UserSchema = Schema ({
     type: { type:String ,enum: ['client','driver']},
     state: { type:String ,enum: ['online','offline']},
     cars:[],
-    rides:[]
+    rides:[],
+    identify:[]
 })
 
 // funciones que se ejecutan antes de que el modelo sea almacenado en la base de datos

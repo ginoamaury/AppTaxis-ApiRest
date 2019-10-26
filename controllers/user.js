@@ -3,6 +3,7 @@
 //Importamos el modelo
 const User = require('../models/user')
 const Car = require('../models/car')
+const Identify = require('../models/identify')
 
 // Función que obtiene un usuario por su id
 function getUser(req,res){
@@ -119,6 +120,30 @@ function addCar(req,res){
     })
 }
 
+// Función que obtiene todos las identificaciones de un usuairo
+function getIdentifications(req,res){
+    let clientId = req.params.documentId
+    User.findById(clientId,(err,client)=>{
+          if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+          if(!client) return res.status(404).send({message: `El usuario no existe`,state : '01'})
+          res.status(200).send({identify : client.identify,state : '00'})
+    })
+}
+
+// Función que agrega un documento de identidad a un usario
+function addIdentify(req,res){
+    let clientId = req.params.documentId
+
+    let identify = new Identify()
+    identify.cardNumber =  req.body.cardNumber
+    identify.expirationDate =  req.body.expirationDate
+
+    User.findByIdAndUpdate(clientId,{$push: {identify: identify}},(err,clientUpdate)=>{
+        if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+        res.status(200).send({client: clientUpdate,state : '00'}) 
+    })
+}
+
 module.exports ={
     getUser,
     getUsers,
@@ -127,5 +152,7 @@ module.exports ={
     newUser,
     deleteUser,
     getCars,
+    getIdentifications,
+    addIdentify,
     addCar
 }
