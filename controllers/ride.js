@@ -121,18 +121,23 @@ function newRide(req,res){
 
     let idUser = req.body.idClient
     let client
-    User.findById(idUser,(err,user)=>{
-        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-        if(!ride) return res.status(404).send({message:`El usuario no existe`,state : '01'})
-        client = user 
-    }).select('_id + firstName + lastName + number + picture')
 
     ride.save((err,rideStored)=>{
         if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
-        Ride.findByIdAndUpdate(rideStored._id,{$push: {client: client}},(err,rideUpdate)=>{
-            if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
-            res.status(200).send({ride: rideUpdate,state : '00'}) 
-        })
+
+        User.findById(idUser,(err,user)=>{
+            if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+            if(!ride) return res.status(404).send({message:`El usuario no existe`,state : '01'})
+            client = user 
+
+            Ride.findByIdAndUpdate(rideStored._id,{$push: {client: client}},(err,rideUpdate)=>{
+                if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+                res.status(200).send({ride: rideUpdate,state : '00'}) 
+            })
+
+        }).select('_id + firstName + lastName + number + picture')
+
+      
     })
 }
 
