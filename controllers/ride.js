@@ -2,6 +2,7 @@
 
 //importación del modelo
 const Ride = require('../models/ride')
+const User = require('../models/user')
 const moment = require('moment')
 
 // Función que obtiene un viaje por su ID
@@ -109,7 +110,6 @@ function getRidesByOffsale(req,res){
 // Función que crea un nuevo viaje
 function newRide(req,res){
     let ride = new Ride()
-    ride.idClient = req.body.idClient
     ride.payment = req.body.payment
     ride.pick = req.body.pick
     ride.drop = req.body.drop
@@ -117,13 +117,20 @@ function newRide(req,res){
     ride.status = "open"
     ride.note = ""
     ride.score = ""
-    ride.idDriver = ""
     ride.price = ""
 
-    ride.save((err,rideStored)=>{
-        if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
-        res.status(200).send({ride: rideStored,state : '00'})
-    })
+    let idUser = req.body.idClient
+    User.findById(idUser,(err,user)=>{
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!ride) return res.status(404).send({message:`El usuario no existe`,state : '01'})
+        ride.client = user
+        ride.save((err,rideStored)=>{
+            if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
+            res.status(200).send({ride: rideStored,state : '00'})
+        })
+    }).select('_id','firstName','lastName','number','picture')
+
+   
 }
 
 // Función que actualiza un viaje
