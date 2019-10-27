@@ -128,7 +128,7 @@ function newRide(req,res){
             if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
             res.status(200).send({ride: rideStored,state : '00'})
         })
-    }).select('_id','firstName','lastName','number','picture')
+    }).select('_id + firstName + lastName + number + picture')
 
    
 }
