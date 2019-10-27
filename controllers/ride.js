@@ -120,7 +120,7 @@ function newRide(req,res){
     ride.price = ""
 
     let idUser = req.body.idClient
-    let client
+    let client = new User()
 
     ride.save((err,rideStored)=>{
         if(err) res.status(500).send({message: `Error al intentar registrar en la BD: ${err}`,state : '01'})
