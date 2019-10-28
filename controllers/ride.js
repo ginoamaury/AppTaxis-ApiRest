@@ -129,7 +129,8 @@ function newRide(req,res){
             if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
             if(!ride) return res.status(404).send({message:`El usuario no existe`,state : '01'})
             client = user 
-
+            console.log(user)
+            console.log(rideStored.id)
             Ride.findByIdAndUpdate(rideStored._id,{$push: {client: client}},(err,rideUpdate)=>{
                 if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
                 res.status(200).send({ride: rideUpdate,state : '00'}) 
