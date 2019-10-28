@@ -120,6 +120,7 @@ function newRide(req,res){
     ride.price = ""
 
     let idUser = req.body.idClient
+    console.log(idUser)
     let client = new User()
 
     ride.save((err,rideStored)=>{
@@ -127,7 +128,7 @@ function newRide(req,res){
 
         User.findById(idUser,(err,user)=>{
             if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-            if(!ride) return res.status(404).send({message:`El usuario no existe`,state : '01'})
+            if(!user) return res.status(404).send({message:`El usuario no existe`,state : '01'})
             client = user 
             console.log(user)
             console.log(rideStored.id)
