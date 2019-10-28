@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const RideSchema = Schema({
-    driver: [],
-    client: [],
+    driver: Object,
+    client: Object,
     payment: { type: String , enum: ['cash','card']},
     price: Number,
     pick: String,
