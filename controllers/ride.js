@@ -109,6 +109,10 @@ function getRidesByOffsale(req,res){
 
 // Función que crea un nuevo viaje
 function newRide(req,res){
+
+    console.log('POST /Ride')
+    console.log(req.body)
+
     let ride = new Ride()
     ride.payment = req.body.payment
     ride.pick = req.body.pick
