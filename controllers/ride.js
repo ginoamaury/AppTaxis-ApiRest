@@ -132,7 +132,7 @@ function newRide(req, res) {
         ride.save((err, rideStored) => {
             if (err) res.status(500).send({ message: `Error al intentar registrar en la BD: ${err}`, state: '01' })
 
-            Ride.findByIdAndUpdate(rideStored._id, { $push: { client: client } }, (err, rideUpdate) => {
+            Ride.findByIdAndUpdate(rideStored._id,  { client: client } , (err, rideUpdate) => {
                 if (err) res.status(500).send({ message: `Error al intentar actualizar el usuario: ${err}`, state: '01' })
                 res.status(200).send({ ride: rideUpdate, state: '00' })
             })
