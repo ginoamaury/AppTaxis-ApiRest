@@ -65,7 +65,7 @@ function getRidesDriverToday(req,res){
 function getRidesClient(req,res){
     let id = req.params.idClient
     console.log(id)
-    Ride.find({'client.idCard': id},(err,rides)=>{
+    Ride.find({client:{idCard: id}},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         console.log("VIAJES : "+rides)
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
