@@ -125,6 +125,7 @@ function newRide(req, res) {
     ride.price = ""
     let idUser = req.body.idClient
     ride.idClient = idUser
+    ride.idDriver = ""
     let client = new User()
     User.findById(idUser, (err, user) => {
         if (err) return res.status(500).send({ message: `Error al realizar la petición: ${err}`, state: '01' })
