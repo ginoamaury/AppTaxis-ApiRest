@@ -20,6 +20,7 @@ const UserSchema = Schema ({
     picture : String,
     type: { type:String ,enum: ['client','driver']},
     state: { type:String ,enum: ['online','offline']},
+    coords: {lat: String, lon: String},
     cars:[],
     rides:[],
     identify:[]

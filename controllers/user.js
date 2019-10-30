@@ -11,22 +11,32 @@ function getUser(req,res){
       let clientId = req.params.documentId
       User.findById(clientId,(err,client)=>{
           // si hay un error en la petición
-          if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`})
+          if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
           // si no encuenta el cliente por su id
-          if(!client) return res.status(404).send({message: `El usuario no existe`})
+          if(!client) return res.status(404).send({message: `El usuario no existe`,state : '01'})
           // si encuenta el cliente muestra la informacion del cliente
-          res.status(200).send({client})
+          res.status(200).send({client,state : '00'})
       })
+}
+
+// Funcion que obtiene las coordenadas de un usuario en especifico
+function getCordsUser (req, res){
+    let userId = req.params.documentId
+    User.findById(userId,(err,user)=>{
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!user) return res.status(404).send({message: `No existen usuarios`,state : '01'})
+        res.status(200).send({user,state:'00'})
+    }).select('_id + coords')
 }
 
 // Función que obtiene todos los usuarios registrados
 function getUsers(req,res){
     User.find({},(err,clients)=>{
-        if(err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-        if(!clients) return res.status(404).send({message: `No existen usuarios`})
+        if(err) return res.status(500).send({message: `Error al realizar la petición: ${err}`,state : '01'})
+        if(!clients) return res.status(404).send({message: `No existen usuarios`,state : '01'})
 
          //Para enviar una respuesta OK cod 200
-         res.status(200).send({clients})
+         res.status(200).send({clients,state : '00'})
     })
    
 }
@@ -154,5 +164,6 @@ module.exports ={
     getCars,
     getIdentifications,
     addIdentify,
-    addCar
+    addCar,
+    getCordsUser
 }

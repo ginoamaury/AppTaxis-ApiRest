@@ -18,6 +18,7 @@ function signUp (req,res){
   user.type= req.body.type
   user.picture = user.gravatar()
   user.state = "offline"
+  user.coords = {lat:"none", lon:"none"}
 
   console.log(user)
 

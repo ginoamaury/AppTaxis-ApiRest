@@ -36,6 +36,8 @@ api.use(cors())
 api.get('/client',userController.getUsers)
 // Petición GET para consultar un usuario especifico
 api.get('/client/:documentId',userController.getUser)
+// Petición GET para consutlar las coordenadas de un usuario especifico
+api.get('/client/coords/:documentId',userController.getCordsUser)
 // Petición POST para registrar un nuevo usuario
 api.post('/client',userController.newUser)
 // Petición PUT para actualizar un usuario especifico
