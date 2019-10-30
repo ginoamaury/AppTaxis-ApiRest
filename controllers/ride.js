@@ -65,11 +65,11 @@ function getRidesDriverToday(req,res){
 function getRidesClient(req,res){
     let id = req.params.idClient
     console.log(id)
-    Ride.find({"client._id": {$oid:id}},(err,rides)=>{
+    Ride.find({"client._id": id},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         console.log("VIAJES : "+rides)
         if(!rides) return res.status(404).send({message: `No existen viajes`,state : '01'})
-        if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
+      //  if(rides.length == 0) return res.status(404).send({message: `No existen viajes`,state : '01'})
         res.status(200).send({rides,count: rides.length,state : '00'})
     })
 }
