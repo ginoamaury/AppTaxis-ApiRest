@@ -5,7 +5,9 @@ const Schema = mongoose.Schema
 
 const RideSchema = Schema({
     driver: Object,
+    idDriver: String,
     client: Object,
+    idClient: String,
     payment: { type: String , enum: ['cash','card']},
     price: Number,
     pick: String,
