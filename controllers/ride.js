@@ -135,7 +135,7 @@ function newRide(req, res) {
             if (err) res.status(500).send({ message: `Error al intentar registrar en la BD: ${err}`, state: '01' })
 
             Ride.findByIdAndUpdate(rideStored._id,  { client: client } , (err, rideUpdate) => {
-                if (err) res.status(500).send({ message: `Error al intentar actualizar el usuario: ${err}`, state: '01' })
+                if (err) res.status(500).send({ message: `Error al intentar actualizar el viaje: ${err}`, state: '01' })
                 res.status(200).send({ ride: rideUpdate, state: '00' })
             })
 
@@ -148,16 +148,36 @@ function updateRide (req,res){
     let rideId = req.params.rideId
     let update = req.body
 
-    Product.findByIdAndUpdate(rideId,body,(err,rideUpdate)=>{
+    Ride.findByIdAndUpdate(rideId,update,(err,rideUpdate)=>{
         if(err) return res.status(500).send({message:`Error al intentar actualizar el viaje: ${err}`,state : '01'})
         return res.status(200).send({ride : rideUpdate,state : '00'})
     })
 }
 
-// Función que elimina un producto 
+// Función que  agrega un conductor a un viaje
+function updateDriverRide (req,res){
+    let rideId = req.params.rideId
+    let idUser =  req.body.driverId
+
+    let driver = new User()
+    User.findById(idUser, (err, user) => {
+        if (err) return res.status(500).send({ message: `Error al realizar la petición: ${err}`, state: '01' })
+        if (!user) return res.status(404).send({ message: `El usuario no existe`, state: '01' })
+        driver = user
+        Ride.findByIdAndUpdate(rideId,  { driver: driver , idDriver:idUser} , (err, rideUpdate) => {
+            if (err) res.status(500).send({ message: `Error al intentar actualizar el viaje: ${err}`, state: '01' })
+            res.status(200).send({ ride: rideUpdate, state: '00' })
+        })
+
+        
+    }).select('firstName + lastName + number + picture + idCard')
+
+}
+
+// Función que elimina un viaje 
 function deleteRide (req,res){
     let rideId = req.params.rideId
-    Product.findByIdAndDelete(rideId,(err,rideDeleted)=>{
+    Ride.findByIdAndDelete(rideId,(err,rideDeleted)=>{
         if(err) return res.status(500).send({message:`Error al intentar eliminar el viaje: ${err}`,state : '01'})
         return res.status(200).send({message: `Viaje eliminado correctamente`,state : '00'})
     })
@@ -175,5 +195,6 @@ module.exports = {
     getRidesDriver,
     getRidesClientToday,
     getRidesDriverToday,
-    getRidesClient
+    getRidesClient,
+    updateDriverRide
 }

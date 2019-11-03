@@ -104,6 +104,8 @@ api.post('/ride',rideController.newRide)
 api.put('/ride/:rideId',rideController.updateRide)
 // Petición DELETE para eliminar un viaje
 api.delete('/ride/:rideId',rideController.deleteRide)
+// Petición PUT para actualizar el conductor de un viaje
+api.put('/ride/driver/:rideId',rideController.updateDriverRide)
 
 
 /// PETICIÓNES ORDENES
