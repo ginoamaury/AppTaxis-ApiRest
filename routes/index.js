@@ -93,7 +93,7 @@ api.get('/ride/status/:status',rideController.getRidesAvailable)
 //Petición GET para obtener los viajes de un conductor
 api.get('/ride/driver/:idDriver',rideController.getRidesDriver)
 //Petición GET para obtener los viajes de hoy de un conductor
-api.get('/ride/driver/today/:idDriver',rideController.getRidesClientToday)
+api.get('/ride/driver/today/:idDriver',rideController.getRidesDriverToday)
 //Petición GET para obtener los viajes de un Cliente
 api.get('/ride/client/:idClient',rideController.getRidesClient)
 //Petición GET para obtener los viajes de hoy de un Cliente
