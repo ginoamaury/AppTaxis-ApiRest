@@ -154,6 +154,21 @@ function addIdentify(req,res){
     })
 }
 
+//Funcion que modifica una identificacion de un usuario
+function modifyIdentify (req,res){
+let clientId = req.params.documentId
+let cardId = req.body.cardId
+let cardNumberN = req.body.cardNumber
+let expirationDate = req.body.expirationDate
+
+User.findOneAndUpdate({"_id":clientId, "identify._id":cardId},{"$set":{"identify.cardNumber":cardNumberN,"identify.expirationDate":expirationDate}}, (err,clientUpdate)=>{
+    if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+    if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
+    res.status(200).send({client: clientUpdate,state : '00'}) 
+})
+
+}
+
 module.exports ={
     getUser,
     getUsers,

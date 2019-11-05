@@ -140,7 +140,7 @@ function newRide(req, res) {
             })
 
         })
-    }).select('firstName + lastName + number + picture + idCard')
+    }).select('firstName + lastName + number + picture + idCard + coords')
 }
 
 // Función que actualiza un viaje
@@ -164,13 +164,13 @@ function updateDriverRide (req,res){
         if (err) return res.status(500).send({ message: `Error al realizar la petición: ${err}`, state: '01' })
         if (!user) return res.status(404).send({ message: `El usuario no existe`, state: '01' })
         driver = user
-        Ride.findByIdAndUpdate(rideId,  { driver: driver , idDriver:idUser} , (err, rideUpdate) => {
+        Ride.findByIdAndUpdate(rideId,  { driver: driver , idDriver:idUser, status:'travel'} , (err, rideUpdate) => {
             if (err) res.status(500).send({ message: `Error al intentar actualizar el viaje: ${err}`, state: '01' })
             res.status(200).send({ ride: rideUpdate, state: '00' })
         })
 
         
-    }).select('firstName + lastName + number + picture + idCard')
+    }).select('firstName + lastName + number + picture + idCard + coords')
 
 }
 

@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 
 
 const IdSchema = Schema({
-  cardNumber : String,
+  cardNumber : {type:String,unique:true},
   expirationDate: String
 })
 
