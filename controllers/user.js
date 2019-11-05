@@ -180,5 +180,6 @@ module.exports ={
     getIdentifications,
     addIdentify,
     addCar,
-    getCordsUser
+    getCordsUser,
+    modifyIdentify
 }

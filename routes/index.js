@@ -54,6 +54,8 @@ api.put('/client/car/:documentId',userController.addCar)
 api.get('/client/document/:documentId',userController.getIdentifications)
 // Petición PUT  para agregar un documento a un usuario
 api.put('/client/document/:documentId',userController.addIdentify)
+// Petición PUT  para modificar un documento a un usuario
+api.put('/client/document/modify/:documentId',userController.modifyIdentify)
 
 
 /// PETICIONES INICIO DE SESION
