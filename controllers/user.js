@@ -171,13 +171,12 @@ let identify =  new Identify()
 
 User.findById(clientId,(err,client)=>{
     if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-    identify = client.identify.id(cardId)
-    identify.cardNumber = cardNumberN
-    identify.expirationDate = expirationDate
+    identify = client.identify
 
-    client.save((err,userStored)=>{
-        if(err) res.status(500).send({message: `Error al intentar actualizar en la BD: ${err}`,state : '01'})
-        res.status(200).send({state:'00',client: userStored})
+    identify.findByIdAndUpdate({ "_id":cardId},{"$set":{"cardNumber":cardNumberN,"expirationDate":expirationDate}}, (err,clientUpdate)=>{
+            if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+            if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
+            res.status(200).send({client: clientUpdate,state : '00'}) 
     })
 })
 
