@@ -50,12 +50,14 @@ api.delete('/client/:documentId',userController.deleteUser)
 api.get('/client/car/:documentId',userController.getCars)
 // Petición PUT  para agregar un carro a un usuario
 api.put('/client/car/:documentId',userController.addCar)
+// Petición PUT  para modificar un carro a un usuario
+api.put('/client/car/modify/:carId',userController.modifyCar)
 // Petición GET para obtener todos los documentos de un usuario
 api.get('/client/document/:documentId',userController.getIdentifications)
 // Petición PUT  para agregar un documento a un usuario
 api.put('/client/document/:documentId',userController.addIdentify)
 // Petición PUT  para modificar un documento a un usuario
-api.put('/client/document/modify/:documentId',userController.modifyIdentify)
+api.put('/client/document/modify/:cardId',userController.modifyIdentify)
 
 
 /// PETICIONES INICIO DE SESION
