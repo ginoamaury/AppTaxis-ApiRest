@@ -163,21 +163,10 @@ let expirationDate = req.body.expirationDate
 
 let identify =  new Identify()
 
-// User.findOneAndUpdate({"_id":clientId, "identify._id":cardId},{"$set":{"identify.cardNumber":cardNumberN,"identify.expirationDate":expirationDate}}, (err,clientUpdate)=>{
-//     if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
-//     if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
-//     res.status(200).send({client: clientUpdate,state : '00'}) 
-// })
-
-User.findById(clientId,(err,client)=>{
-    if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-    identify = client.identify
-
-    identify.findByIdAndUpdate({ "_id":cardId},{"$set":{"cardNumber":cardNumberN,"expirationDate":expirationDate}}, (err,clientUpdate)=>{
-            if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
-            if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
-            res.status(200).send({client: clientUpdate,state : '00'}) 
-    })
+User.findOneAndUpdate({"identify._id":cardId},{"$set":{"identify.$.cardNumber":cardNumberN,"identify.$.expirationDate":expirationDate}}, (err,clientUpdate)=>{
+    if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+    if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
+    res.status(200).send({client: clientUpdate,state : '00'}) 
 })
 
 }
