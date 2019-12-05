@@ -18,7 +18,7 @@ function findFirst (req,res){
     Config.findOne((err,config)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!config) return res.status(404).send({message: `No existe configuracion`,state : '01'})
-        res.status(200).send({cars :config,state : '00'})
+        res.status(200).send({config :config,state : '00'})
     })
 }
 

@@ -1,6 +1,7 @@
 'use strict'
 
 const User = require('../models/user')
+const Config = require('../models/config')
 const service = require('../services')
 
 function signUp (req,res){
@@ -45,13 +46,17 @@ function signIn (req,res){
       if (err) return res.status(500).send({ msg: `Error al ingresar: ${err}` }) 
       if (!isMatch) return res.status(404).send({ msg: `Error de contraseña: ${req.body.email}` })
       req.user =user
-      res.status(200).send({
-        message : 'Inicio de sesión correcto',
-        state : '00',
-        token: service.createToken(user),
-        user: user
+      Config.findOne((err,config)=>{
+        if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+        if(!config) return res.status(404).send({message: `No existe configuracion`,state : '01'})
+        res.status(200).send({
+          message : 'Inicio de sesión correcto',
+          state : '00',
+          token: service.createToken(user),
+          user: user,
+          config: config
+        })
       })
-
     })
    
  }).select('_id + email + password + idCard + firstName + lastName + birthDay + gender + number + address + type + picture + state')
