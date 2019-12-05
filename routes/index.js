@@ -8,6 +8,7 @@ const userControl = require('../controllers/auth')
 const rideController = require('../controllers/ride')
 const categoryControl = require('../controllers/category')
 const orderControl = require('../controllers/order')
+const configControl = require('../controllers/config')
 
 const auth = require('../middlewares/auth')
 //const upload = require('../middlewares/upload')
@@ -125,6 +126,18 @@ api.put('/order/:orderId',orderControl.updateStateOrder)
 // Petición DELETE para eliminar una orden que no ha sido aprobada
 api.delete('/order/:orderId',orderControl.deleteOrder)
 
+
+
+/// PETICIÓNES CONFIGURACION
+
+// Petición POST para registrar una nueva configuracion
+api.post('/config',auth,configControl.newConfig)
+// Petición GET para obetener todas las cofiguraciones
+
+// Petición PUT para actualizar una configucaion
+api.put('/config/:configId',auth,configControl.updateConfig)
+// Petición DELETE para eliminar una configuracion
+api.delete('/config/:configId',auth,configControl.deleteConfig)
 
 
 module.exports = api
