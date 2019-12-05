@@ -132,8 +132,8 @@ api.delete('/order/:orderId',orderControl.deleteOrder)
 
 // Petición POST para registrar una nueva configuracion
 api.post('/config',auth,configControl.newConfig)
-// Petición GET para obetener todas las cofiguraciones
-
+// Petición GET para obetener la configuracion
+api.get('/config',auth,configControl.findFirst)
 // Petición PUT para actualizar una configucaion
 api.put('/config/:configId',auth,configControl.updateConfig)
 // Petición DELETE para eliminar una configuracion
