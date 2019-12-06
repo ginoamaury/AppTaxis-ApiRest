@@ -55,8 +55,9 @@ function getRidesAvailable(req,res){
                     let distance = element.getDistance(latRide,lonRide,latUser,lonUser)
                     console.log("DISTANCIA ENTRE LATITUDES"+distance +"-" + distanceConfig)
                     console.log("ELEMENTO ANTES DE GUARDARLO "+element)
-                    if(parseInt(distance)<parseInt(distanceConfig)) ridesR.push(element)
                     console.log("VALIDACION :"+ distance<distanceConfig )
+                    if(parseInt(distance)<parseInt(distanceConfig)) ridesR.push(element)
+                   
                 })
             }
             res.status(200).send({rides: ridesR,state : '00'})
