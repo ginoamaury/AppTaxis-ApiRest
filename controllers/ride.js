@@ -57,7 +57,7 @@ function getRidesAvailable(req,res){
 
                     if(parseInt(distance)<parseInt(distanceConfig)){
                         ridesR.push(element)
-                        console.log("SE AÑADIO EL ELEMENTO "+ridesR)
+                        console.log("SE AÑADIO Al ARRAY "+ridesR)
                     }
                    
                 })
