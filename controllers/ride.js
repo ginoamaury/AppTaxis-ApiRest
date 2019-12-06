@@ -48,10 +48,11 @@ function getRidesAvailable(req,res){
                 User.findById(idDriver,(err,user)=>{
                     if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
                     if(!user) return res.status(404).send({message: `No existe el usuario`,state : '01'})
+                    console.log("USUARIO: "+user)
                     let latUser = user.coords.lat
                     let lonUser = user.coords.lon
                     console.log("LOCALIZACION USUARIO: "+"LATITUD: "+latUser+" LONGITUD: "+lonUser)
-                    let distance = Ride.getDistance(latRide,lonRide,latUser,lonUser)
+                    let distance = element.getDistance(latRide,lonRide,latUser,lonUser)
                     console.log("DISTANCIA ENTRE LATITUDES"+distance)
                     if(distance<distanceConfig) ridesR.push(element)
     
