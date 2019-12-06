@@ -28,7 +28,7 @@ function getRides(req,res){
 function getRidesAvailable(req,res){
     let statusSearch = req.params.status
     let idDriver = req.body.idDriver
-    let ridesR = []
+    let ridesR = new Array()
     console.log(statusSearch)
     Ride.find({status:statusSearch},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
