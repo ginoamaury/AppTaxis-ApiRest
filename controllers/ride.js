@@ -42,8 +42,8 @@ function getRidesAvailable(req,res){
             for (let index = 0; index < rides.length; index++) {
                 const element = rides[index];
                 console.log("ELEMNTO: "+element)
-                let latRide = element.client.lat
-                let lonRide = element.client.lon
+                let latRide = element.client.coords.lat
+                let lonRide = element.client.coords.lon
                 console.log("LOCALIZACION VIAJE: "+"LATITUD: "+latRide+" LONGITUD: "+lonRide)
                 User.findById(idDriver,(err,user)=>{
                     if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
