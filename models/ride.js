@@ -29,7 +29,7 @@ var dLong = rad( lon2 - lon1 );
 var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dLong/2) * Math.sin(dLong/2);
 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 var d = R * c;
-return d.toFixed(3); //Retorna tres decimales
+return d.toFixed(0); //Retorna tres decimales
 }
 
 module.exports = mongoose.model('Ride',RideSchema)
