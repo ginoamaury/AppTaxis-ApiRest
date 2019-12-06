@@ -28,7 +28,7 @@ function getRides(req,res){
 function getRidesAvailable(req,res){
     let statusSearch = req.params.status
     let idDriver = req.body.idDriver
-    let ridesR = new Array()
+    var ridesR = new Array()
     console.log(statusSearch)
     Ride.find({status:statusSearch},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
@@ -57,11 +57,12 @@ function getRidesAvailable(req,res){
 
                     if(parseInt(distance)<parseInt(distanceConfig)){
                         ridesR.push(element)
-                        console.log("SE AÑADIO Al ARRAY "+ridesR)
+                        
                     }
                    
                 })
             }
+            console.log("ARRAY FINAL "+ridesR)
             res.status(200).send({rides: ridesR,state : '00'})
         })
     })
