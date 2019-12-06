@@ -3,6 +3,7 @@
 //importación del modelo
 const Ride = require('../models/ride')
 const User = require('../models/user')
+const Config = require('../models/config')
 const moment = require('moment')
 
 // Función que obtiene un viaje por su ID
@@ -23,15 +24,40 @@ function getRides(req,res){
     })
 }
 
-// Función que obtiene todos los viajes disponibles existentes con determinado estado
+// Función que obtiene todos los viajes disponibles existentes con determinado estado y dentro del rango
 function getRidesAvailable(req,res){
     let statusSearch = req.params.status
+    let idDriver = req.body.idDriver
+    let ridesR = []
     console.log(statusSearch)
     Ride.find({status:statusSearch},(err,rides)=>{
         if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
         if(!rides) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
         if(rides.length == 0) return res.status(404).send({message: `No existen viajes disponibles`,state : '01'})
-        res.status(200).send({rides,state : '00'})
+        Config.findOne((err,config)=>{
+            if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+            if(!config) return res.status(404).send({message: `No existe configuracion`,state : '01'})
+            let distanceConfig = config.distance
+            console.log("DISTANCIA CONFIGURADA"+distanceConfig)
+            for (let index = 0; index < rides.length; index++) {
+                const element = rides[index];
+                let latRide = element.client.lat
+                let lonRide = element.client.lon
+                console.log("LOCALIZACION VIAJE: "+"LATITUD: "+latRide+" LONGITUD: "+lonRide)
+                User.findById(idDriver,(err,user)=>{
+                    if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+                    if(!user) return res.status(404).send({message: `No existe el usuario`,state : '01'})
+                    let latUser = user.coords.lat
+                    let lonUser = user.coords.lon
+                    console.log("LOCALIZACION USUARIO: "+"LATITUD: "+latUser+" LONGITUD: "+lonUser)
+                    let distance = Ride.getDistance(latRide,lonRide,latUser,lonUser)
+                    console.log("DISTANCIA ENTRE LATITUDES"+distance)
+                    if(distance<distanceConfig) ridesR.push(element)
+    
+                })
+            }
+            res.status(200).send({rides: ridesR,state : '00'})
+        })
     })
 }
 
