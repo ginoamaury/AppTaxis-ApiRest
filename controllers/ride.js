@@ -62,9 +62,11 @@ function getRidesAvailable(req,res){
                    
                 })
             }
-            console.log("ARRAY FINAL "+ridesR)
-            res.status(200).send({rides: ridesR,state : '00'})
+           
+            
         })
+        console.log("ARRAY FINAL "+ridesR)
+        res.status(200).send({rides: ridesR,state : '00'})
     })
 }
 
