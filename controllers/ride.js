@@ -38,35 +38,28 @@ function getRidesAvailable(req,res){
             if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
             if(!config) return res.status(404).send({message: `No existe configuracion`,state : '01'})
             let distanceConfig = config.distance
-            console.log("DISTANCIA CONFIGURADA: "+distanceConfig)
-            for (let index = 0; index < rides.length; index++) {
-                const element = rides[index];
-                console.log("ELEMNTO: "+element)
-                let latRide = element.client.coords.lat
-                let lonRide = element.client.coords.lon
-                console.log("LOCALIZACION VIAJE: "+"LATITUD: "+latRide+" LONGITUD: "+lonRide)
-                User.findById(idDriver,(err,user)=>{
-                    if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
-                    if(!user) return res.status(404).send({message: `No existe el usuario`,state : '01'})
-                    console.log("USUARIO: "+user)
-                    let latUser = user.coords.lat
-                    let lonUser = user.coords.lon
-                    console.log("LOCALIZACION USUARIO: "+"LATITUD: "+latUser+" LONGITUD: "+lonUser)
+            User.findById(idDriver,(err,user)=>{
+                if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
+                if(!user) return res.status(404).send({message: `No existe el usuario`,state : '01'})
+                let latUser = user.coords.lat
+                let lonUser = user.coords.lon
+                console.log("LOCALIZACION USUARIO: "+"LATITUD: "+latUser+" LONGITUD: "+lonUser)
+                for (let index = 0; index < rides.length; index++) {
+                    const element = rides[index];
+                    let latRide = element.client.coords.lat
+                    let lonRide = element.client.coords.lon
+                    console.log("LOCALIZACION VIAJE: "+"LATITUD: "+latRide+" LONGITUD: "+lonRide)
                     let distance = element.getDistance(latRide,lonRide,latUser,lonUser)
                     console.log("DISTANCIA ENTRE LATITUDES"+distance +"-" + distanceConfig)
-
                     if(parseInt(distance)<parseInt(distanceConfig)){
-                        ridesR.push(element)
-                        
+                        ridesR.push(element)   
                     }
-                   
-                })
-            }
-           
-            
+                }
+                console.log("ARRAY FINAL "+ridesR)
+                res.status(200).send({rides: ridesR,state : '00'})
+            })
         })
-        console.log("ARRAY FINAL "+ridesR)
-        res.status(200).send({rides: ridesR,state : '00'})
+       
     })
 }
 
