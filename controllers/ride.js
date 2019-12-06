@@ -38,9 +38,10 @@ function getRidesAvailable(req,res){
             if(err) return res.status(500).send({message:`Error al realizar la petición: ${err}`,state : '01'})
             if(!config) return res.status(404).send({message: `No existe configuracion`,state : '01'})
             let distanceConfig = config.distance
-            console.log("DISTANCIA CONFIGURADA"+distanceConfig)
+            console.log("DISTANCIA CONFIGURADA: "+distanceConfig)
             for (let index = 0; index < rides.length; index++) {
                 const element = rides[index];
+                console.log("ELEMNTO: "+element)
                 let latRide = element.client.lat
                 let lonRide = element.client.lon
                 console.log("LOCALIZACION VIAJE: "+"LATITUD: "+latRide+" LONGITUD: "+lonRide)
