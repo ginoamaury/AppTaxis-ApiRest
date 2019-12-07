@@ -4,7 +4,10 @@
 const Ride = require('../models/ride')
 const User = require('../models/user')
 const Config = require('../models/config')
+const configP = require('../config')
 const moment = require('moment')
+const io = require('socket.io-client');
+var socket = io.connect(`http://localhost:${configP.port}`,{'forceNew':true})
 
 // Función que obtiene un viaje por su ID
 function getRide(req,res){
@@ -139,8 +142,6 @@ function getRidesByOffsale(req,res){
 // Función que crea un nuevo viaje
 function newRide(req, res) {
 
-    console.log('POST /Ride')
-    console.log(req.body)
 
     let ride = new Ride()
     ride.payment = req.body.payment
@@ -164,6 +165,13 @@ function newRide(req, res) {
 
             Ride.findByIdAndUpdate(rideStored._id,  { client: client } , (err, rideUpdate) => {
                 if (err) res.status(500).send({ message: `Error al intentar actualizar el viaje: ${err}`, state: '01' })
+                socket.on('connect',function(socket){
+                    console.log("Se ha creado un nuevo viaje")
+                    
+                })
+                socket.emit('messages',{
+                    ride:rideStored
+                })
                 res.status(200).send({ ride: rideUpdate, state: '00' })
             })
 
