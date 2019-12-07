@@ -68,7 +68,7 @@ function newUser(req,res){
 function updateUser(req,res){
     let clientId = req.params.documentId
     let update = req.body
-
+    console.log('DATA USER',update)
     User.findByIdAndUpdate(clientId, update, (err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
         res.status(200).send({client: clientUpdate,state : '00'})         
