@@ -94,7 +94,7 @@ api.get('/ride/category/:categoryId',rideController.getRidesbyCategory)
 // Petición GET para obtener productos con descuento disponibles
 api.get('/ride/offSale/:percent',rideController.getRidesByOffsale)
 //Petición GET para obtener los viajes con determinado estado
-api.get('/ride/status/:status',rideController.getRidesAvailable)
+api.post('/ride/status/:status',rideController.getRidesAvailable)
 //Petición GET para obtener los viajes de un conductor
 api.get('/ride/driver/:idDriver',rideController.getRidesDriver)
 //Petición GET para obtener los viajes de hoy de un conductor
