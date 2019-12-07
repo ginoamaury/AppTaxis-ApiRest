@@ -19,10 +19,13 @@ mongoose.connect(config.db,{useNewUrlParser:true},(err,res)=>{
     })
 
     var so = socket.listen(serverApi)
-    so.sockets.on('connection', function(socket){
+    so.sockets.on('connect', function(socket){
         console.log('Alguien se ha conectado')
         socket.on('messages', function(data){
             console.log(data)
+            so.emit('emitNotification',{
+                ride:data
+            })
         })
     })
     

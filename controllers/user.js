@@ -116,7 +116,7 @@ function getCars(req,res){
 // Función que agrega un carro al usuario
 function addCar(req,res){
     let clientId = req.params.documentId
-
+    console.log(req.body)
     let car = new Car()
     car.licensePlate =  req.body.licensePlate
     car.brand =  req.body.brand
