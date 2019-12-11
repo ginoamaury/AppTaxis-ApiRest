@@ -10,7 +10,7 @@ var socket = require('socket.io')(server)
 
 
 
-mongoose.connect(config.db,{useNewUrlParser:true},(err,res)=>{
+mongoose.connect(config.db,{useNewUrlParser:true,useFindAndModify:false},(err,res)=>{
     if(err)throw err
     console.log('Conexión a la base de datos establecida...')
    var serverApi =  app.listen(config.port,()=>{
@@ -20,7 +20,7 @@ mongoose.connect(config.db,{useNewUrlParser:true},(err,res)=>{
 
     var so = socket.listen(serverApi)
     so.sockets.on('connect', function(socket){
-        console.log('Alguien se ha conectado')
+        console.log('Alguien se ha conectado'+" ID: "+socket.id)
         socket.on('messages', function(data){
             console.log(data)
             so.emit('emitNotification',{

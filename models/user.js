@@ -5,6 +5,19 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
 const crypto = require('crypto')
 
+const IdSchema = Schema({
+  cardNumber : {type:String,unique:true},
+  expirationDate: String
+})
+
+const CarSchema = Schema({
+  licensePlate : {type:String,unique:true},
+  brand: String,
+  model: String,
+  year: Number,
+  color: String,
+})
+
 const UserSchema = Schema ({
     idCard :{type:Number ,unique:true},
     firstName : String,
@@ -21,9 +34,9 @@ const UserSchema = Schema ({
     type: { type:String ,enum: ['client','driver']},
     state: { type:String ,enum: ['online','offline']},
     coords: {lat: String, lon: String},
-    cars:[],
+    cars:[CarSchema],
     rides:[],
-    identify:[]
+    identify:[IdSchema]
 })
 
 // funciones que se ejecutan antes de que el modelo sea almacenado en la base de datos

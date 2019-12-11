@@ -118,14 +118,15 @@ function addCar(req,res){
     let clientId = req.params.documentId
     console.log(req.body)
     let car = new Car()
-    car.licensePlate =  req.body.licensePlate
-    car.brand =  req.body.brand
-    car.model =  req.body.model
-    car.year =  req.body.year
-    car.color =  req.body.color
+    let licensePlate =  req.body.licensePlate
+    let brand =  req.body.brand
+    let model =  req.body.model
+    let year =  req.body.year
+    let color =  req.body.color
 
-    User.findByIdAndUpdate(clientId,{$push: {cars: car}},(err,clientUpdate)=>{
+    User.findByIdAndUpdate(clientId,{$push: {cars: {licensePlate:licensePlate,brand:brand,model:model,year:year,color:color}}},{new: true},(err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
+        if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
         res.status(200).send({client: clientUpdate,state : '00'}) 
     })
 }
@@ -145,10 +146,10 @@ function addIdentify(req,res){
     let clientId = req.params.documentId
 
     let identify = new Identify()
-    identify.cardNumber =  req.body.cardNumber
-    identify.expirationDate =  req.body.expirationDate
+    let cardNumber =  req.body.cardNumber
+    let expirationDate =  req.body.expirationDate
 
-    User.findByIdAndUpdate(clientId,{$push: {identify: identify}},(err,clientUpdate)=>{
+    User.findByIdAndUpdate(clientId,{$push: {identify: {cardNumber:cardNumber,expirationDate:expirationDate}}},{new: true},(err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
         res.status(200).send({client: clientUpdate,state : '00'}) 
     })
@@ -156,10 +157,11 @@ function addIdentify(req,res){
 
 //Funcion que modifica una identificacion de un usuario
 function modifyIdentify (req,res){
-let cardId = req.params.cardId
+let idUser = req.params.documentId
+let cardId = req.body.cardId
 let cardNumberN = req.body.cardNumber
 let expirationDate = req.body.expirationDate
-User.findOneAndUpdate({"identify._id":cardId},{"$set":{"identify.$.cardNumber":cardNumberN,"identify.$.expirationDate":expirationDate}}, (err,clientUpdate)=>{
+User.findOneAndUpdate({'_id':idUser,'identify._id':cardId},{$set:{'identify.$.cardNumber':cardNumberN,'identify.$.expirationDate':expirationDate}},{new: true}, (err,clientUpdate)=>{
     if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
     if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
     res.status(200).send({client: clientUpdate,state : '00'}) 
@@ -168,19 +170,21 @@ User.findOneAndUpdate({"identify._id":cardId},{"$set":{"identify.$.cardNumber":c
 
 //Funcion que modifica una carro de un usuario
 function modifyCar (req,res){
-    let carId = req.params.carId
+    let idUser = req.params.documentId
+    let carId = req.body.carId
     let licensePlate = req.body.licensePlate
     let brand = req.body.brand
     let model = req.body.model
     let year = req.body.year
     let color = req.body.color
-
-    User.findOneAndUpdate({"cars._id":carId},{"$set":{"cars.$.licensePlate":licensePlate,"cars.$.brand":brand ,"cars.$.model":model,"cars.$.year":year,"cars.$.color":color}}, (err,clientUpdate)=>{
+    User.findOneAndUpdate({'_id':idUser,'cars._id':carId},{$set:{'cars.$.licensePlate':licensePlate,'cars.$.brand':brand,'cars.$.model':model,'cars.$.year':year,'cars.$.color':color}},{new: true}, (err,clientUpdate)=>{
         if(err) res.status(500).send({message: `Error al intentar actualizar el usuario: ${err}`,state : '01'})
         if(!clientUpdate) return res.status(404).send({message: `El usuario no existe`,state : '01'})
         res.status(200).send({client: clientUpdate,state : '00'}) 
     })
-    }
+
+
+}
 
 module.exports ={
     getUser,
