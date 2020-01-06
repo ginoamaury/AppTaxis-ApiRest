@@ -9,6 +9,10 @@ const moment = require('moment')
 const io = require('socket.io-client');
 var socket = io.connect(`http://localhost:${configP.port}`,{'forceNew':true})
 
+socket.on('identified', function(data){
+    console.log("Su identificador es :"+data.identify)
+})
+
 // Función que obtiene un viaje por su ID
 function getRide(req,res){
     let rideId = req.params.rideId

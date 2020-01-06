@@ -21,6 +21,7 @@ mongoose.connect(config.db,{useNewUrlParser:true,useFindAndModify:false},(err,re
     var so = socket.listen(serverApi)
     so.sockets.on('connect', function(socket){
         console.log('Alguien se ha conectado'+" ID: "+socket.id)
+        so.to(socket.id).emit('identified',{identify:socket.id})
         socket.on('messages', function(data){
             console.log(data)
             so.emit('emitNotification',{
