@@ -153,11 +153,13 @@ function newRide(req, res) {
     ride.drop = req.body.drop
     ride.kilometers = ""
     ride.status = "open"
-    ride.note = ""
+    ride.note = req.body.note
     ride.score = ""
     ride.price = ""
     let idUser = req.body.idClient
     ride.idClient = idUser
+    ride.socketClient = req.body.socketClient
+    ride.socketDriver = ""
     ride.idDriver = ""
     let client = new User()
     User.findById(idUser, (err, user) => {
@@ -198,15 +200,20 @@ function updateRide (req,res){
 function updateDriverRide (req,res){
     let rideId = req.params.rideId
     let idUser =  req.body.driverId
+    let socketDriver =  req.body.socketDriver
 
     let driver = new User()
     User.findById(idUser, (err, user) => {
         if (err) return res.status(500).send({ message: `Error al realizar la petición: ${err}`, state: '01' })
         if (!user) return res.status(404).send({ message: `El usuario no existe`, state: '01' })
         driver = user
-        Ride.findByIdAndUpdate(rideId,  { driver: driver , idDriver:idUser, status:'travel'} , (err, rideUpdate) => {
+        Ride.findByIdAndUpdate(rideId,  { driver: driver , idDriver:idUser, socketDriver:socketDriver , status:'travel'} , (err, rideUpdate) => {
             if (err) res.status(500).send({ message: `Error al intentar actualizar el viaje: ${err}`, state: '01' })
             res.status(200).send({ ride: rideUpdate, state: '00' })
+            socket.emit('notifyUser',{
+                ride:rideUpdate,
+                client: rideUpdate.socketClient
+            })
         })
 
         

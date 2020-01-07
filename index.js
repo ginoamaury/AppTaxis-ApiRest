@@ -28,6 +28,13 @@ mongoose.connect(config.db,{useNewUrlParser:true,useFindAndModify:false},(err,re
                 ride:data
             })
         })
+
+        socket.on('notifyUser', function(data){
+            console.log("id cliente: "+data.client+" info del viaje: "+data.ride)
+            so.to(data.client).emit('notifyUserRide',{
+                ride:data.ride
+            })
+        })
     })
     
 

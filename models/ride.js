@@ -8,6 +8,8 @@ const RideSchema = Schema({
     idDriver: String,
     client: Object,
     idClient: String,
+    socketClient: String,
+    socketDriver: String,
     payment: { type: String , enum: ['cash','card']},
     price: Number,
     pick: String,
