@@ -140,7 +140,7 @@ api.put('/config/:configId',auth,configControl.updateConfig)
 api.delete('/config/:configId',auth,configControl.deleteConfig)
 
 //PETICION PRUEBA GELSA
-api.post('/gelsa',configControl.gelsa)
+api.post('/gelsa/giros/captarGiro',configControl.gelsa)
 
 
 module.exports = api
