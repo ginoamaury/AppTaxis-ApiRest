@@ -49,9 +49,15 @@ function deleteConfig(req,res){
     })
 }
 
+// FUNCION PRUEBA PARA GELSA
+function gelsa(req,res){
+    res.status(200).send({message: 'La prueba de conexion es exitosa',state : '00'})
+}
+
 module.exports ={
   newConfig,
   updateConfig,
   deleteConfig,
   findFirst,
+  gelsa
 }

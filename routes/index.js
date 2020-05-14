@@ -139,5 +139,8 @@ api.put('/config/:configId',auth,configControl.updateConfig)
 // Petición DELETE para eliminar una configuracion
 api.delete('/config/:configId',auth,configControl.deleteConfig)
 
+//PETICION PRUEBA GELSA
+api.post('/gelsa',configControl.gelsa)
+
 
 module.exports = api
