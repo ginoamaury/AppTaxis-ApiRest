@@ -51,7 +51,81 @@ function deleteConfig(req,res){
 
 // FUNCION PRUEBA PARA GELSA
 function gelsa(req,res){
-    res.status(200).send({codigoRespuesta: '0',exito : true ,fechaTransaccion : "15052020",horaTransaccion: "17:31:10", idTransaccionRespuesta: 5065240050883,mensaje:"Exito",mensajes:[] })
+    res.status(200).send({
+        codProveedor:"RM",
+        codPostal:"540001",
+        consecutivo:"070049897",
+        pin:"1731060018012071",
+        factura:"MGSS070049897",
+        conceptos:[
+           {
+              codigo:"3",
+              nombre:"FLETE",
+              valor:4700
+           },
+           {
+              codigo:"2",
+              nombre:"ENVIO",
+              valor:5000
+           }
+        ],
+        agenciaOrigen:{
+           codigo:"2530705",
+           nombre:"GELSA CVS CUCUTA|GRUPO EMPRESARIAL EN LINEA SA",
+           direccion:"GELSA CVS CUCUTA|GRUPO EMPRESARIAL EN LINEA SA"
+        },
+        agenciaDestino:{
+           codigo:"9755",
+           nombre:"PAGATODO PR BARRANCAS  Calle 156 No 7 B-50"
+        },
+        clienteOrigen:{
+           tipoIdentificacion:"CC",
+           identificacion:"111111",
+           primerNombre:"ASTEBIAS",
+           primerApellido:"RAMOS",
+           segundoApellido:"RAMOS",
+           direccion:"CAR 45",
+           email:"astebias.ramos@dcsas.com",
+           telefono:"5148369",
+           celular:"3192399787",
+           enrolado:true,
+           exoneradoHuella:true,
+           huella:"EXONERATE",
+           remitente:false
+        },
+        clienteDestino:{
+           tipoIdentificacion:"CC",
+           identificacion:"222222",
+           primerNombre:"NOMBRE",
+           primerApellido:"APELLIDO",
+           segundoApellido:"APELLIDO",
+           direccion:"CALLE 12 15 1533",
+           email:"cesar.criales@dcsas.com.co",
+           telefono:"4064465",
+           celular:"3191234567",
+           enrolado:false,
+           exoneradoHuella:false,
+           remitente:false
+        },
+        consultarPromocionRespuestaDTO:{
+           isGanador:false,
+           codigoRespuesta:"0",
+           exito:true,
+           fechaTransaccion:"15052020",
+           horaTransaccion:"17:31:10",
+           idTransaccionRespuesta:6247330050884,
+           idTransaccionSolicitud:70049897,
+           mensaje:"Exito",
+           mensajes:[]
+        },
+        codigoRespuesta:"0",
+        exito:true,
+        fechaTransaccion:"15052020",
+        horaTransaccion:"17:31:10",
+        idTransaccionRespuesta:5065240050883,
+        mensaje:"Exito",
+        mensajes:[]
+     })
 }
 
 module.exports ={
