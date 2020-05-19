@@ -51,7 +51,7 @@ function deleteConfig(req,res){
 
 // FUNCION PRUEBA PARA GELSA
 function gelsa(req,res){
-    res.status(200).send({message: 'La prueba de conexion es exitosa',state : '00'})
+    res.status(200).send({codigoRespuesta: '0',exito : true ,fechaTransaccion : "15052020",horaTransaccion: "17:31:10", idTransaccionRespuesta: 5065240050883,mensaje:"Exito",mensajes:[] })
 }
 
 module.exports ={
