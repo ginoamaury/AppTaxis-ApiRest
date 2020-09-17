@@ -281,6 +281,104 @@ function getUsersWposs (req,res){
     }])
 }
 
+function getPostUserWposs (req,res){
+    let idUser = req.params.userId
+    if (idUser === 1){
+        res.status(200).send([{
+            id: "1",
+            title: "Restaurante",
+            body: "Este es el cuerpo del mensaje",
+            
+        },
+        {
+            id: "2",
+            title: "Comida",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "3",
+            title: "Deporte",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "4",
+            title: "Baile",
+            body: "Este es el cuerpo del mensaje",
+        }])
+    }else if (idUser ===2){
+        res.status(200).send([{
+            id: "1",
+            title: "Baloncesto",
+            body: "Este es el cuerpo del mensaje",
+            
+        },
+        {
+            id: "2",
+            title: "Futbol",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "3",
+            title: "Natacion",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "4",
+            title: "Ciclismo",
+            body: "Este es el cuerpo del mensaje",
+        }])
+
+    }else if (idUser ===3){
+        res.status(200).send([{
+            id: "1",
+            title: "Pizza",
+            body: "Este es el cuerpo del mensaje",
+            
+        },
+        {
+            id: "2",
+            title: "Hamburguesa",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "3",
+            title: "Picada",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "4",
+            title: "Shawarma",
+            body: "Este es el cuerpo del mensaje",
+        }])
+        
+    }else if (idUser ===4){
+        res.status(200).send([{
+            id: "1",
+            title: "Plato fuert",
+            body: "Este es el cuerpo del mensaje",
+            
+        },
+        {
+            id: "2",
+            title: "Entrada",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "3",
+            title: "Snaks",
+            body: "Este es el cuerpo del mensaje",
+        },
+        {
+            id: "4",
+            title: "Ensalada",
+            body: "Este es el cuerpo del mensaje",
+        }])
+    }else{
+        res.status(404).send({message: `El usuario no existe`,state : '01'})
+    }
+    
+}
+
 module.exports ={
     getUser,
     getUsers,
@@ -295,5 +393,6 @@ module.exports ={
     getCordsUser,
     modifyIdentify,
     modifyCar,
-    getUsersWposs
+    getUsersWposs,
+    getPostUserWposs
 }

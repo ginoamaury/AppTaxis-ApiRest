@@ -144,6 +144,7 @@ api.post('/gelsa/giros/captarGiro',configControl.gelsa)
 
 //PETICIONES PRUBEA INGRESO WPOSS
 api.get('/users',userController.getUsersWposs)
+api.get('/posts/:userId',userController.getPostUserWposs)
 
 
 module.exports = api
