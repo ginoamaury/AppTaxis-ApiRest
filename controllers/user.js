@@ -186,6 +186,101 @@ function modifyCar (req,res){
 
 }
 
+function getUsersWposs (req,res){
+    res.status(200).send([{
+        id: "1",
+        nombre: "Juan",
+        username: "Juan2020",
+        email: "juan@gmail.com",
+        address: {
+            street: "1",
+            suite: "2",
+            city: "Bogota",
+            zipcode: "54004",
+            geo: {
+                lat: "1000002",
+                lng: "9999998"
+            }
+        },
+        phone: "3212222222",
+        website: "juan.com",
+        company :{
+            name: "juanCompany",
+            catchPhrase: "Phrase Company",
+            bs: "1"
+        }
+    },
+    {
+        id: "2",
+        nombre: "maria",
+        username: "maria2020",
+        email: "maria@gmail.com",
+        address: {
+            street: "1",
+            suite: "2",
+            city: "Bogota",
+            zipcode: "54004",
+            geo: {
+                lat: "1000002",
+                lng: "9999998"
+            }
+        },
+        phone: "3212222222",
+        website: "maria.com",
+        company :{
+            name: "mariaCompany",
+            catchPhrase: "Phrase Company",
+            bs: "1"
+        }
+    },
+    {
+        id: "3",
+        nombre: "jose",
+        username: "jose2020",
+        email: "jose@gmail.com",
+        address: {
+            street: "1",
+            suite: "2",
+            city: "Bogota",
+            zipcode: "54004",
+            geo: {
+                lat: "1000002",
+                lng: "9999998"
+            }
+        },
+        phone: "3212222222",
+        website: "jose.com",
+        company :{
+            name: "joseCompany",
+            catchPhrase: "Phrase Company",
+            bs: "1"
+        }
+    },
+    {
+        id: "4",
+        nombre: "ruperta",
+        username: "ruperta2020",
+        email: "ruperta@gmail.com",
+        address: {
+            street: "1",
+            suite: "2",
+            city: "Bogota",
+            zipcode: "54004",
+            geo: {
+                lat: "1000002",
+                lng: "9999998"
+            }
+        },
+        phone: "3212222222",
+        website: "ruperta.com",
+        company :{
+            name: "rupertaCompany",
+            catchPhrase: "Phrase Company",
+            bs: "1"
+        }
+    }])
+}
+
 module.exports ={
     getUser,
     getUsers,
@@ -199,5 +294,6 @@ module.exports ={
     addCar,
     getCordsUser,
     modifyIdentify,
-    modifyCar
+    modifyCar,
+    getUsersWposs
 }

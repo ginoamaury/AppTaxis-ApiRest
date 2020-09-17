@@ -142,5 +142,8 @@ api.delete('/config/:configId',auth,configControl.deleteConfig)
 //PETICION PRUEBA GELSA
 api.post('/gelsa/giros/captarGiro',configControl.gelsa)
 
+//PETICIONES PRUBEA INGRESO WPOSS
+api.get('/users',userController.getUsersWposs)
+
 
 module.exports = api
