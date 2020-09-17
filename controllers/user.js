@@ -283,7 +283,7 @@ function getUsersWposs (req,res){
 
 function getPostUserWposs (req,res){
     let idUser = req.params.userId
-    if (idUser === 1){
+    if (idUser === "1"){
         res.status(200).send([{
             id: "1",
             title: "Restaurante",
@@ -305,7 +305,7 @@ function getPostUserWposs (req,res){
             title: "Baile",
             body: "Este es el cuerpo del mensaje",
         }])
-    }else if (idUser ===2){
+    }else if (idUser === "2"){
         res.status(200).send([{
             id: "1",
             title: "Baloncesto",
@@ -328,7 +328,7 @@ function getPostUserWposs (req,res){
             body: "Este es el cuerpo del mensaje",
         }])
 
-    }else if (idUser ===3){
+    }else if (idUser === "3"){
         res.status(200).send([{
             id: "1",
             title: "Pizza",
@@ -351,7 +351,7 @@ function getPostUserWposs (req,res){
             body: "Este es el cuerpo del mensaje",
         }])
         
-    }else if (idUser ===4){
+    }else if (idUser === "4"){
         res.status(200).send([{
             id: "1",
             title: "Plato fuert",
